@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package chat;
+
+service ChatService {
+  // Unary RPC
+  rpc SendMessage(Message) returns (MessageResponse) {}
+
+  // Server Streaming RPC
+  rpc SubscribeToMessages(SubscribeRequest) returns (stream Message) {}
+
+  // Client Streaming RPC
+  rpc UploadMessages(stream Message) returns (UploadResponse) {}
+
+  // Bidirectional Streaming RPC
+  rpc Chat(stream Message) returns (stream Message) {}
+}
+
+message Message {
+  string user_id = 1;
+  string content = 2;
+  string timestamp = 3;
+}
+
+message MessageResponse {
+  bool success = 1;
+  string message_id = 2;
+}
+
+message SubscribeRequest {
+  string user_id = 1;
+}
+
+message UploadResponse {
+  int32 messages_received = 1;
+  bool success = 2;
+} 

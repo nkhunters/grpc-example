@@ -1,0 +1,40 @@
+{
+  "name": "grpc-demo",
+  "version": "1.0.0",
+  "description": "A demo showcasing all four gRPC patterns",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start:server": "ts-node src/server.ts",
+    "start:client": "ts-node src/client.ts",
+    "generate:proto": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./compiled_proto --grpc_out=grpc_js:./compiled_proto --ts_out=grpc_js:./compiled_proto proto/*.proto",
+    "dev": "concurrently \"npm run start:server\" \"npm run start:client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.11",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "long": "^5.3.2",
+    "nice-grpc": "^2.1.12",
+    "pino": "^9.3.2",
+    "protobufjs": "^7.4.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.7",
+    "@types/uuid": "^9.0.8",
+    "concurrently": "^8.2.2",
+    "grpc-tools": "^1.13.0",
+    "nodemon": "^3.1.4",
+    "pino-pretty": "^11.2.2",
+    "ts-node": "^10.9.2",
+    "ts-proto": "^2.7.0",
+    "typescript": "^5.4.5"
+  }
+}

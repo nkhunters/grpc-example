@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging to AWS...
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 159815772185.dkr.ecr.ap-south-1.amazonaws.com
+  build:
+    commands:
+      - echo Build started on 'date'
+      - docker build -t techaircraft-payment-service .
+      - docker tag techaircraft-payment-service:latest 159815772185.dkr.ecr.ap-south-1.amazonaws.com/techaircraft-payment-service:latest
+  post_build:
+    commands:
+      - echo Build completed on 'date'
+      - docker push 159815772185.dkr.ecr.ap-south-1.amazonaws.com/techaircraft-payment-service:latest
+      - printf '[{"name":"techaircraft-payment-service-container","imageUri":"%s"}]' 159815772185.dkr.ecr.ap-south-1.amazonaws.com/techaircraft-payment-service:latest > imagedefinitions.json
+      - echo Pushed to ECR
+artifacts:
+  files: imagedefinitions.json
